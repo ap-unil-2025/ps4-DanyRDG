@@ -21,6 +21,8 @@ def create_number_list(start, end):
     """
     # TODO: Implement this function
     # Hint: Use range() and convert to list
+    # 1. Create a number list
+    return list(range(start, end + 1))
     pass
 
 
@@ -40,6 +42,7 @@ def filter_even_numbers(numbers):
     """
     # TODO: Implement this function
     # You can use a loop or list comprehension
+    return [n for n in numbers if n % 2 == 0]
     pass
 
 
@@ -59,6 +62,7 @@ def square_numbers(numbers):
     """
     # TODO: Implement this function
     # Hint: Try a list comprehension!
+    return [n ** 2 for n in numbers]
     pass
 
 
@@ -78,6 +82,9 @@ def find_max_min(numbers):
     """
     # TODO: Implement this function
     # You can use max() and min() built-in functions
+    if not numbers:
+        return None, None
+    return max(numbers), min(numbers)
     pass
 
 
@@ -98,6 +105,13 @@ def remove_duplicates(items):
     # TODO: Implement this function
     # Hint: You can use a loop and check if item is already in result list
     # Or convert to set and back to list (but this doesn't preserve order)
+    seen = set()
+    result = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
     pass
 
 
@@ -121,6 +135,14 @@ def merge_lists(list1, list2):
     """
     # TODO: Implement this function
     # Hint: Use a loop with index, handle different lengths
+    merged = []
+    max_len = max(len(list1), len(list2))
+    for i in range(max_len):
+        if i < len(list1):
+            merged.append(list1[i])
+        if i < len(list2):
+            merged.append(list2[i])
+    return merged
     pass
 
 
@@ -139,7 +161,16 @@ def list_statistics(numbers):
         {'sum': 15, 'average': 3.0, 'count': 5, 'max': 5, 'min': 1}
     """
     if not numbers:
-        return None
+        return {"sum": 0, "average": 0, "count": 0, "max": None, "min": None}
+    total = sum(numbers)
+    count = len(numbers)
+    return {
+        "sum": total,
+        "average": total / count,
+        "count": count,
+        "max": max(numbers),
+        "min": min(numbers),
+    }
 
     # TODO: Implement this function
     # Calculate and return a dictionary with the statistics
@@ -163,6 +194,9 @@ def chunk_list(items, chunk_size):
     """
     # TODO: Implement this function
     # Hint: Use list slicing in a loop
+    if chunk_size <= 0:
+        raise ValueError("chunk_size must be greater than 0")
+    return [items[i:i + chunk_size] for i in range(0, len(items), chunk_size)]
     pass
 
 

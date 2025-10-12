@@ -23,6 +23,12 @@ def create_student_record(name, age, major, gpa):
     """
     # TODO: Implement this function
     # Return a dictionary with the provided information
+    return {
+        "name": name,
+        "age": age,
+        "major": major,
+        "gpa": gpa
+    }
     pass
 
 
@@ -47,6 +53,7 @@ def get_value_safely(dictionary, key, default=None):
     """
     # TODO: Implement this function
     # Hint: Use the .get() method or check if key in dictionary
+    return dictionary.get(key, default)
     pass
 
 
@@ -67,6 +74,9 @@ def merge_dictionaries(dict1, dict2):
     """
     # TODO: Implement this function
     # Create a new dictionary with items from both
+    merged = dict1.copy()
+    merged.update(dict2)
+    return merged
     pass
 
 
@@ -91,6 +101,11 @@ def count_word_frequency(text):
     # 2. Remove punctuation (you can use .replace() or import string)
     # 3. Split into words
     # 4. Count each word's frequency
+    words = text.lower().split()
+    freq = {}
+    for word in words:
+        freq[word] = freq.get(word, 0) + 1
+    return freq
     pass
 
 
@@ -111,6 +126,7 @@ def invert_dictionary(dictionary):
     """
     # TODO: Implement this function
     # Create a new dictionary with values as keys and keys as values
+    return {value: key for key, value in dictionary.items()}
     pass
 
 
@@ -131,6 +147,7 @@ def filter_dictionary(dictionary, keys_to_keep):
     """
     # TODO: Implement this function
     # Loop through keys_to_keep and add them to result if they exist
+    return {k: v for k, v in dictionary.items() if k in keys_to_keep}
     pass
 
 
@@ -153,6 +170,12 @@ def group_by_first_letter(words):
     #   - Get first letter
     #   - Add word to the list for that letter
     # Hint: Use .setdefault() or check if key exists
+    for word in words:
+        if not word:
+            continue
+        first = word[0].lower()
+        groups.setdefault(first, []).append(word)
+    return groups
     pass
 
 
@@ -178,6 +201,10 @@ def calculate_grades_average(students):
     # TODO: Implement this function
     # For each student, calculate average of their grades
     # Hint: sum(grades) / len(grades)
+    if not students:
+        return 0
+    total = sum(student.get("gpa", 0) for student in students)
+    return total / len(students)
     pass
 
 
@@ -203,6 +230,13 @@ def nested_dict_access(data, keys):
     # TODO: Implement this function
     # Start with data, then traverse using each key
     # Return None if any key is missing
+    current = data
+    for key in keys:
+        if isinstance(current, dict) and key in current:
+            current = current[key]
+        else:
+            return None
+    return current
     pass
 
 
